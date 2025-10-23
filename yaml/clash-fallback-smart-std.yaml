@@ -16,6 +16,7 @@ proxy-providers:
       interval: 180
     proxy: 直连 
 
+
   冰云:
     url: "机场订阅地址"
     type: http
@@ -202,6 +203,7 @@ default: &default
     - 直连
     - 所有-智选
     - 所有-手选
+    - 日本-Pro
     - 香港-智选
     - 香港-故转
     - 台湾-故转
@@ -325,10 +327,21 @@ proxy-groups:
     type: select
     include-all: true
     filter: "(?=.*(广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan)).*$"
-    - name: 日本-Pro
-    type: select
+  - name: 日本-Pro
+    type: smart
     include-all: true
+    policy-priority: ".*牛逼.*:0.8"
+    uselightgbm: true
+    collectdata: true
+    health-check: 
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 60
+      tolerance: 2
+    strategy: sticky-sessions
+    interval: 180
     filter: "(?=.*(自建|天空樹|濱離宮)).*$"
+    
   - name: 日本-智选
     type: smart
     include-all: true
@@ -400,6 +413,33 @@ proxy-groups:
     interval: 180
     filter: "(?=.*(广美|US|美国|纽约|波特兰|达拉斯|俄勒|凤凰城|费利蒙|洛杉|圣何塞|圣克拉|西雅|芝加|🇺🇸|United States)).*$"
 
+  #CF组
+  - name: CF-故转
+    type: fallback
+    interval: 180
+    lazy: false
+    proxies:
+      - CF-手选
+      - CF-智选
+  - name: CF-手选
+    type: select
+    include-all: true
+    filter: "(?=.*(CF)).*$"
+  - name: CF-智选
+    type: smart
+    include-all: true
+    policy-priority: ".*牛逼.*:0.8"
+    uselightgbm: true
+    collectdata: true
+    health-check: 
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 60
+      tolerance: 2
+    strategy: sticky-sessions
+    interval: 180
+    filter: "(?=.*(CF)).*$"  
+  
 
   # 其他组
   
@@ -537,6 +577,7 @@ rule-providers:
 #  Google / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs"}  
 #  Google / IP: {<<: *ip, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geoip/google.mrs"}
 #  GateFireWall / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/gfw.mrs"}
+
 
 
 
