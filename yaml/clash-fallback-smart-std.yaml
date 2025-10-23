@@ -325,6 +325,10 @@ proxy-groups:
     type: select
     include-all: true
     filter: "(?=.*(广日|日本|JP|川日|东京|大阪|泉日|埼玉|沪日|深日|🇯🇵|Japan)).*$"
+    - name: 日本-Pro
+    type: select
+    include-all: true
+    filter: "(?=.*(自建|天空樹|濱離宮)).*$"
   - name: 日本-智选
     type: smart
     include-all: true
@@ -533,5 +537,6 @@ rule-providers:
 #  Google / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs"}  
 #  Google / IP: {<<: *ip, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geoip/google.mrs"}
 #  GateFireWall / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/gfw.mrs"}
+
 
 
